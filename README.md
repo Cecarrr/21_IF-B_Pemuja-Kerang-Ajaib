@@ -19,10 +19,10 @@ Proyek akhir Praktikum Data Science 2026/2027, Program Studi Informatika, Univer
 
 | No | Nama | NIM | Kontribusi |
 | --- | --- | --- | --- |
-| 1 | Wahyu Fahri Roisya | 123240052 | [kontribusi] |
-| 2 | Caesar Sabillah KPP | 123240056 | [kontribusi] |
-| 3 | Dzaky Muammar | 123240057 | [kontribusi] |
-| 4 | Rizky Rama Oktavian | 123240087 | [kontribusi] |
+| 1 | Wahyu Fahri Roisya | 123240052 | [grafik dan visualisasi] |
+| 2 | Caesar Sabillah KPP | 123240056 | [EDA] |
+| 3 | Dzaky Muammar | 123240057 | [grafik dan visualisasi] |
+| 4 | Rizky Rama Oktavian | 123240087 | [data gathering] |
 
 ## Sumber Data
 
@@ -78,7 +78,7 @@ Target ditetapkan konservatif dan berlaku untuk model terpilih.
 **Batas pengumpulan 30 Oktober 2026**
 - [✓] Business Understanding
 - [✓] Data Gathering
-- [ ] EDA
+- [✓] EDA
 - [ ] Cleaning dan Preprocessing
 
 **Batas pengumpulan akhir 22 November 2026**
