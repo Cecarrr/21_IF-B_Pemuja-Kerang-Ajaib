@@ -6,3 +6,4 @@ scipy==1.18.1
 matplotlib==3.11.1
 seaborn==0.13.2
 jupyter
+shap==0.54.1
