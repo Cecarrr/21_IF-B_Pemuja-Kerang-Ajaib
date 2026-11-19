@@ -49,11 +49,16 @@ Proyek akhir Praktikum Data Science 2026/2027, Program Studi Informatika, Univer
 
 ## Cara Menjalankan
 
-1. Pastikan Python terpasang (proyek ini dikembangkan dengan Python 3.13.7). Disarankan memakai virtual environment.
+1. Pastikan Python terpasang (proyek ini dikembangkan dengan Python 3.14.10). Disarankan memakai virtual environment.
 2. Pasang dependensi. Versi library tercantum di `requirements.txt`:
    ```
-   pip install -r requirements.txt
+   python -m pip install -r requirements.txt
    ```
+   Pakai `python -m pip` (bukan `pip` saja) agar paket masuk ke interpreter yang sama dengan yang dipanggil. Lalu daftarkan lingkungan ini sebagai kernel Jupyter dan pilih kernel tersebut di notebook:
+   ```
+   python -m ipykernel install --user --name churn-ds
+   ```
+   Sel pertama pada bagian Library Import memeriksa interpreter, versi paket, dan keberadaan `shap`. Jika ada paket yang tidak terlihat oleh kernel, sel itu berhenti dengan pesan yang menunjukkan interpreter yang sedang dipakai.
 3. Pastikan dataset berada di `data/Telco-Customer-Churn.csv`.
 4. Seluruh notebook berjalan sekitar 10 sampai 15 menit pada satu inti CPU (random search Random Forest dan grid SVM paling lama). Pada CPU multi-inti jauh lebih cepat karena `N_JOBS = -1`. Ubah `N_JOBS` menjadi 1 pada bagian 5.1 jika memori terbatas.
 5. Buka folder `notebooks/` lalu jalankan notebook berurutan dari sel pertama sampai terakhir. Path pada notebook relatif terhadap folder `notebooks/` (`../data/` dan `../figures/`), sehingga notebook harus dijalankan dengan folder kerja `notebooks/`.
