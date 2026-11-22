@@ -19,15 +19,15 @@ Proyek akhir Praktikum Data Science 2026/2027, Program Studi Informatika, Univer
 
 | No | Nama | NIM | Kontribusi |
 | --- | --- | --- | --- |
-| 1 | Wahyu Fahri Roisya | 123240052 | [grafik dan visualisasi, Cleaning dan perbandingan sebelum/sesudah, Analisis dan perbandingan] |
-| 2 | Caesar Sabillah KPP | 123240056 | [EDA, Feature Engineering dan Selection,  perbaikan README dan requirements, Modelling RF] |
-| 3 | Dzaky Muammar | 123240057 | [grafik dan visualisasi, Feature Engineering dan Selection, Modelling LR] |
-| 4 | Rizky Rama Oktavian | 123240087 | [data gathering, Split data dan pipeline preprocessing, Modelling SVM] |
+| 1 | Wahyu Fahri Roisya | 123240052 | Grafik dan visualisasi, Cleaning dan perbandingan sebelum dan sesudah, Analisis dan perbandingan |
+| 2 | Caesar Sabillah KPP | 123240056 | EDA, Feature Engineering dan Selection, perbaikan README dan requirements, Modelling RF |
+| 3 | Dzaky Muammar | 123240057 | Grafik dan visualisasi, Feature Engineering dan Selection, Modelling LR |
+| 4 | Rizky Rama Oktavian | 123240087 | Data gathering, Split data dan pipeline preprocessing, Modelling SVM |
 
 ## Sumber Data
 
 - **Dataset:** Telco Customer Churn, 7.043 baris dan 21 kolom (satu baris per pelanggan).
-- **Asal:** data sampel IBM yang menggambarkan perusahaan telekomunikasi **fiktif**, dipublikasikan ulang di Kaggle oleh BlastChar.
+- **Asal:** data sampel IBM yang menggambarkan perusahaan telekomunikasi, dipublikasikan ulang di Kaggle oleh BlastChar.
 - **Tautan:** https://www.kaggle.com/datasets/blastchar/telco-customer-churn
 - **Sumber asli:** https://community.ibm.com/community/user/businessanalytics/blogs/steven-macko/2019/07/11/telco-customer-churn-1113
 - **Tanggal akses:** 17 Oktober 2026.
@@ -60,7 +60,7 @@ Proyek akhir Praktikum Data Science 2026/2027, Program Studi Informatika, Univer
    ```
    Sel pertama pada bagian Library Import memeriksa interpreter, versi paket, dan keberadaan `shap`. Jika ada paket yang tidak terlihat oleh kernel, sel itu berhenti dengan pesan yang menunjukkan interpreter yang sedang dipakai.
 3. Pastikan dataset berada di `data/Telco-Customer-Churn.csv`.
-4. Seluruh notebook berjalan sekitar 10 sampai 15 menit pada satu inti CPU (random search Random Forest dan grid SVM paling lama). Pada CPU multi-inti jauh lebih cepat karena `N_JOBS = -1`. Ubah `N_JOBS` menjadi 1 pada bagian 5.1 jika memori terbatas.
+4. Seluruh notebook berjalan sekitar 10 sampai 15 menit pada single-core CPU (random search Random Forest dan grid SVM paling lama). Pada CPU multi-core jauh lebih cepat karena `N_JOBS = -1`. Ubah `N_JOBS` menjadi 1 pada bagian 5.1 jika memori terbatas.
 5. Buka folder `notebooks/` lalu jalankan notebook berurutan dari sel pertama sampai terakhir. Path pada notebook relatif terhadap folder `notebooks/` (`../data/` dan `../figures/`), sehingga notebook harus dijalankan dengan folder kerja `notebooks/`.
 6. Grafik tersimpan otomatis di folder `figures/`. Seluruh hasil dapat direproduksi karena `RANDOM_STATE = 42`.
 
@@ -97,12 +97,13 @@ Target ditetapkan sebelum modelling dan tidak diubah setelah melihat hasil. Targ
 | Logistic Regression (pembanding kewajaran) | 0,842 | 0,636 |
 
 **Temuan utama**
-- Tuning memperbaiki Random Forest secara nyata (ROC-AUC +0,030 dengan CI [0,018, 0,043]), terutama karena Random Forest bawaan menghafal data latih (PR-AUC latih 0,9999 vs 0,598 pada uji).
+- Tuning memperbaiki Random Forest secara nyata (ROC-AUC +0,030 dengan CI [0,018, 0,043]), terutama karena Random Forest bawaan menghafal data latih (PR-AUC latih 0,9999 dibanding 0,598 pada uji).
 - Random Forest **setara** dengan SVM tuned dan Logistic Regression, bukan lebih unggul: semua selisih interval kepercayaannya mencakup atau menempel pada nol. ROC-AUC sekitar 0,84 tampaknya batas yang wajar pada dataset ini.
 - Faktor utama: jenis kontrak, jenis layanan internet, dan lama berlangganan (hasil permutation importance dan SHAP, bersifat asosiasi).
 - Pada skenario biaya dasar, menghubungi 44% pelanggan teratas menangkap 82% churn dengan net benefit sekitar 2,4 kali lipat menghubungi semua pelanggan.
-- Repeated CV 5x5 pada 7.043 baris (bagian 6.9) memperkuat hal itu: RF vs Logistic Regression selisih ROC-AUC +0,001 (tidak signifikan), RF vs SVM +0,005 (di batas signifikansi, tidak bermakna secara praktis). Learning curve sudah mendatar, sehingga batasnya ada pada informasi di fitur, bukan pada model atau jumlah data.
-- Kelemahan: churn pada pelanggan berkontrak satu atau dua tahun hampir tidak terdeteksi (36 dari 45 churner uji terlewat).
+- Repeated CV 5x5 pada 7.043 baris (bagian 6.9) memperkuat hal itu: selisih ROC-AUC RF terhadap Logistic Regression +0,001 (tidak signifikan) dan terhadap SVM +0,005 (di batas signifikansi, tidak bermakna secara praktis). Learning curve sudah mendatar, sehingga batasnya ada pada informasi di fitur, bukan pada model atau jumlah data.
+- Confusion matrix pada data uji (threshold 0,406): 308 churner terdeteksi, 66 terlewat, 317 pelanggan bertahan ikut dihubungi, dan 718 tidak dihubungi (`figures/fig19_confusion_matrix.png`).
+- Kelemahan: churn pada pelanggan berkontrak satu atau dua tahun hampir tidak terdeteksi (36 dari 45 churner uji terlewat). Contoh kasus yang terlewat dan dugaan penyebabnya ada di bagian 6.7 notebook.
 
 ## Status Pengerjaan
 
@@ -123,8 +124,8 @@ Presentasi: 23 November sampai 4 Desember 2026.
 
 ## Batasan
 
-- Data berupa satu snapshot per pelanggan tanpa riwayat waktu, sehingga dinamika perubahan perilaku tidak dapat dimodelkan.
-- Perusahaan dalam dataset fiktif dan tanpa informasi wilayah, sehingga hasil tidak dapat langsung digeneralisasi ke operator di Indonesia.
+- Data berupa satu snapshot per pelanggan tanpa riwayat waktu, sehingga dinamika perubahan perilaku seiring waktu (Forecasting) tidak dapat dimodelkan.
+- Perusahaan dalam dataset tanpa informasi wilayah, sehingga hasil tidak dapat langsung digeneralisasi ke operator di Indonesia.
 - Tidak ada data biaya akuisisi, margin, atau customer lifetime value, sehingga analisis cost-benefit memakai asumsi.
 - Hubungan antar variabel bersifat asosiatif, bukan sebab-akibat.
 - Pemodelan dibatasi pada Random Forest dan SVM sesuai materi praktikum. Logistic Regression hanya dipakai sebagai pembanding kewajaran.
